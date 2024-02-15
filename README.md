@@ -1,2 +1,0 @@
-# Karisha.github.io
-Valentinka
