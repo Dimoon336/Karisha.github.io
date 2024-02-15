@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для Кариши❤</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+    <style>
+        *{
+    font-family: 'Sofia', cursive;
+}
+        body {
+        
+            background-color: rgba(255, 192, 203); /* Полупрозрачный розовый цвет фона */
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            margin: 0; /* Убираем внешние отступы у body */
+            padding: 0; /* Убираем внутренние отступы у body */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 1000px; /* Ширина контейнера */
+            height: 1100px; /* Высота контейнера */
+            margin: 300px auto 0; /* Центрирование по горизонтали и добавление отступа сверху */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: rgba(255, 240, 240);
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        h6 {
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            display: flex; /* Используем flexbox для кнопок */
+            justify-content: center; /* Центрируем кнопки по горизонтали */
+            margin-top: 20px; /* Отступ сверху между изображением и кнопками */
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px; /* Добавляем небольшие отступы между кнопками */
+            position: relative; /* Изменяем позиционирование на relative */
+            transition: background-color 0.3s, transform 0.1s; /* Добавляем плавное изменение цвета фона и трансформации */
+            border-radius: 10px; /* Добавляем скругление углов */
+        }
+
+        .button:hover {
+            background-color: #8b3737; /* Изменяем цвет фона при наведении для кнопки "Нет" */
+            transform: scale(1.1); /* Увеличиваем размер кнопки при наведении */
+        }
+
+        .button:active {
+            transform: translateY(10px); /* Делаем кнопку "вздрагивающей" при нажатии */
+        }
+
+        .button.yes {
+            background-color: #00cc99; /* Задаем цвет фона для кнопки "Yes" */
+        }
+
+        .button.yes:hover {
+            background-color: #009966; /* Изменяем цвет фона при наведении для кнопки "Yes" */
+        }
+
+        img {
+            max-width: 100%; /* Максимальная ширина изображения */
+            max-height: 50%; /* Максимальная высота изображения */
+            margin: 0 auto; /* Центрирование изображения */
+        }
+
+        .spooky-text {
+            color: red;
+            font-size: 24px;
+            position: absolute;
+            display: none; /* Начально скрываем */
+
+        }
+
+
+
+        .centered-elements {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+<div class="container background-image">
+    <h1>Будешь моей валентинкой?</h1>
+    <h6>По желанию женой</h6>
+    <img id="gif" src="C:\Users\dimak\Desktop\Gift\files\2131.gif" alt="Ваше описание">
+    <div class="buttons">
+        <button class="button yes" onclick="response('yes')">Да))</button>
+        <button class="button" id="moveButton">Нет</button>
+    </div>
+    <p id="result"></p>
+</div>
+
+<script>
+    var textIndex = 0;
+
+    function moveButton() {
+        var button = document.getElementById('moveButton');
+        var container = document.querySelector('.container');
+        var texts = ["Думаешь все так легко?", "Неет))", "Ты нажмешь да.", "У тебя нету выбора солнце))", "Ты действительно так хочешь нажать?(", "Ну..", "Не надо..", "ты мне понравилась", "я хотел бы", "что бы", "ты", "ответила", "да(", "Пожалуйста", "Я настолько доставуч?", "Серьезно?", "что же...", "5", "4", "3", "2", "1", "Извини..", "Я не думал что настолько тебе не нравлюсь..", "Я НЕ ХОТЕЛ"];
+        var text = texts[textIndex];
+        textIndex = (textIndex + 1) % texts.length;
+        var containerRect = container.getBoundingClientRect();
+        var buttonRect = button.getBoundingClientRect();
+        var maxX = containerRect.width / 2 - buttonRect.width;
+        var maxY = containerRect.height / 2 - buttonRect.height;
+        var newX = Math.floor(Math.random() * (maxX + 1));
+        var newY = Math.floor(Math.random() * (maxY + 1));
+
+        // Ограничение перемещения кнопки в пределах контейнера
+        newX = Math.max(0, Math.min(newX, maxX));
+        newY = Math.max(0, Math.min(newY, maxY));
+
+        button.style.left = newX + 'px';
+        button.style.top = newY + 'px';
+        button.textContent = text;
+
+        if (text === "Я НЕ ХОТЕЛ") {
+            // Скрываем все элементы
+            document.querySelectorAll('.button, h1, h6, img, #result').forEach(function(element) {
+                element.style.display = 'none';
+            });
+            // Меняем цвет фона на черный
+            document.body.style.backgroundColor = '#000';
+            // Показываем ужааасный текст
+            showSpookyText(text);
+        }
+    }
+
+    document.getElementById('moveButton').addEventListener('click', moveButton);
+
+    function showSpookyText(text) {
+        // Создаем несколько элементов для ужаааааасного текста
+        var numOfSpookyTexts = 80; // Количество текстов
+        var container = document.querySelector('.container');
+        for (var i = 0; i < numOfSpookyTexts; i++) {
+            var spookyTextElement = document.createElement('div');
+            spookyTextElement.textContent = text;
+            spookyTextElement.classList.add('spooky-text');
+            var maxX = container.offsetWidth - spookyTextElement.offsetWidth;
+            var maxY = container.offsetHeight - spookyTextElement.offsetHeight;
+            var newX = Math.floor(Math.random() * maxX);
+            var newY = Math.floor(Math.random() * maxY);
+            spookyTextElement.style.left = newX + 'px';
+            spookyTextElement.style.top = newY + 'px';
+            container.appendChild(spookyTextElement);
+        }
+        // Показываем созданные элементы
+        document.querySelectorAll('.spooky-text').forEach(function(element) {
+            element.style.display = 'block';
+        });
+    }
+
+    function response(answer) {
+    if (answer === 'yes') {
+        // Пропадают все элементы, кроме фона и плейсхолдера
+        document.querySelectorAll('.button, h1, h6, img, #result').forEach(function(element) {
+            element.style.display = 'none';
+        });
+
+        // Создаем обертку для новых элементов
+        var newElementsWrapper = document.createElement('div');
+        newElementsWrapper.classList.add('centered-elements');
+        document.body.appendChild(newElementsWrapper);
+
+   // Создаем новую гифку
+var newGif = document.createElement('img');
+newGif.src = "C:/Users/dimak/Desktop/Gift/files/qwee.gif"; 
+newGif.alt = 'Описание новой гифки'; 
+newGif.setAttribute('id', 'newGifId'); // Задаем айди
+newElementsWrapper.appendChild(newGif);
+
+
+
+
+        
+        // Создаем новый текст
+        var newText = document.createElement('p');
+        newText.textContent = 'ЯПИИИИИИИИ Я тебя тоже люблю пупсик❤❤❤'; // Замените Новый текст на текст, который вы хотите отобразить
+        newElementsWrapper.appendChild(newText);
+    }
+}
+
+
+
+
+
+    // Переменные для управления гифкой
+    var gif = document.getElementById('gif');
+    var gifSrc = gif.src;
+    var intervalId;
+
+    // Функция для циклического воспроизведения гифки
+    function playGif() {
+        intervalId = setInterval(function() {
+            gif.src = gifSrc; // Обновляем источник гифки
+        }, 2000); // Интервал в миллисекундах
+    }
+
+    // Запускаем воспроизведение гифки
+    playGif();
+    
+
+</script>
+</body>
+</html>
